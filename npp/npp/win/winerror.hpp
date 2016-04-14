@@ -2,99 +2,73 @@
 
 #if WIN32
 
-#include <string>
-#include <windows.h>
-#include "../nstring.hpp"
-
-//#define ERROR_INTERNET_EXTENDED_ERROR
-//#if defined(ERROR_INTERNET_EXTENDED_ERROR)
-//#include <wininet.h>
-//#endif
+#include "windows_utils.hpp"
 
 namespace npp { namespace win {
 
-	template<typename TMessage>
+	/// @brief Ce trait permet d'obtenir le message d'un code erreur en utilisant FormatMessage.
+	/// @tparam TString Type de chaine pour le message.
+	template<class TString>
 	struct winerror_trait
 	{
-		static TMessage get_message(DWORD code)
+		/// @brief Obtient le message.
+		/// @param[in] code Code erreur.
+		/// @return Message obtenu.
+		static TString get_message(DWORD code)
 		{
-/*
-#if defined(ERROR_INTERNET_EXTENDED_ERROR)
-			if (c == ERROR_INTERNET_EXTENDED_ERROR)
-			{
-				DWORD error;
-				DWORD buffer_size;
-
-				::InternetGetLastResponseInfo(&error, nullptr, &buffer_size);
-				buffer = new TMessage::value_type[buffer_size + 1];
-				::InternetGetLastResponseInfo(&error, buffer, &buffer_size);
-
-				msg.assign(buffer, buffer_size);
-				delete[] buffer;
-
-				return basic_win32error_t(error, msg);
-			}
-#endif
-*/
-
-			TMessage msg;
-			TMessage::value_type* buffer = nullptr;
-			::FormatMessage(
-				FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_IGNORE_INSERTS,
-				nullptr,
-				code,
-				MAKELANGID(LANG_NEUTRAL, SUBLANG_NEUTRAL),
-				reinterpret_cast<TMessage::value_type*>(&buffer),
-				0,
-				nullptr);
-			if (buffer)
-			{
-				msg.assign(buffer);
-				::LocalFree(buffer);
-			}
-			return msg;
+			return get_error_message<TString>(code);
 		}
 	};
 
-	template<typename TMessage, typename TTrait = winerror_trait<TMessage>>
-	class basic_winerror_t
+	/// @brief Représente une erreur Windows.
+	class winerror_t
 	{
 	private:
 		DWORD code_;
-		TMessage message_;
-		explicit basic_winerror_t(DWORD c, TMessage m) : code_{ c }, message_{ m } {}
-
+		
 	public:
-		basic_winerror_t(const basic_winerror_t<TMessage>& e) : code_{ e.code_ }, message_{ e.message } {}
-		basic_winerror_t(basic_winerror_t&& e) : code_{ e.code_ }, message_{ std::move(e.message_) } {}
-		basic_winerror_t<TMessage>& operator=(const basic_winerror_t& o)
+		/// @brief Construit un code erreur.
+		explicit winerror_t() : code_{ 0 } {}
+
+		/// @brief Construit un code erreur.
+		/// @param[in] c Code erreur.
+		explicit winerror_t(DWORD c) : code_{ c } {}
+
+		/// @brief Construit un code erreur.
+		/// @param[in] e Autre instance à copier.
+		winerror_t(const winerror_t& e) : code_{ e.code_ } {}
+
+		/// @brief Construit un code erreur.
+		/// @param[in] e Autre instance à déplacer.
+		winerror_t(winerror_t&& e) : code_{ e.code_ } {}
+
+		/// @brief Affecte cette instance avec la valeur d'une autre instance.
+		/// @param[in] o Instance dont la valeur est copiée.
+		/// @return Cette instance.
+		winerror_t& operator=(const winerror_t& o)
 		{
-			if (this != &o)
+			if (this != &o) 
 			{
 				code_ = o.code_;
-				message_ = o.message_;
 			}
 			return *this;
 		}
 
+		/// @brief Obtient le code de l'erreur.
+		/// @return Code de l'erreur.
 		DWORD code() const { return code_; }
-		TMessage message() const { return message_; }
+
+		/// @brief Obtient le message de l'erreur.
+		/// @tparam TString type de la chaine à obtenir.
+		/// @tparam TTrait Trait pour obtenir le message.
+		/// @return Message de l'erreur.
+		template<class TString, class TTrait = winerror_trait<TString>>
+		TString message() const { return TTrait::get_message(code_); }
+
+		/// @brief Opérateur de conversion implicite pour obtenir le code de l'erreur.
+		/// @return Code de l'erreur.
 		operator DWORD() const { return code_; }
-
-		static basic_winerror_t<TMessage> from_last_error()
-		{
-			return from_error(::GetLastError());
-		}
-
-		static basic_winerror_t<TMessage> from_error(DWORD c)
-		{
-			return basic_winerror_t(c, TTrait::get_message(c));
-		}
 	};
-
-	using awinerror_t = basic_winerror_t<std::wstring>;
-	using wwinerror_t = basic_winerror_t<std::string>;
-	using nwinerror_t = basic_winerror_t<npp::nstring>;
 
 } }
 

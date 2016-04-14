@@ -26,5 +26,11 @@
     <ClInclude Include="npp\win\winerror.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="npp\win\windows_utils.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="npp\win\wininet_utils.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
