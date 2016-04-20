@@ -73,21 +73,29 @@
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(SolutionDir)bin\$(Configuration)-$(PlatformTarget)\</OutDir>
     <IntDir>$(SolutionDir)tmp\$(ProjectName)-$(Configuration)-$(PlatformTarget)\</IntDir>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);C:\dev\libs\boost\1.60.0\</IncludePath>
+    <LibraryPath>$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(NETFXKitsDir)Lib\um\x86;C:\dev\libs\boost\1.60.0\lib-$(PlatformTarget)-msvc-$(MSBuildToolsVersion)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(SolutionDir)bin\$(Configuration)-$(PlatformTarget)\</OutDir>
     <IntDir>$(SolutionDir)tmp\$(ProjectName)-$(Configuration)-$(PlatformTarget)\</IntDir>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);C:\dev\libs\boost\1.60.0\</IncludePath>
+    <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(NETFXKitsDir)Lib\um\x64;C:\dev\libs\boost\1.60.0\lib-$(PlatformTarget)-msvc-$(MSBuildToolsVersion)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(SolutionDir)bin\$(Configuration)-$(PlatformTarget)\</OutDir>
     <IntDir>$(SolutionDir)tmp\$(ProjectName)-$(Configuration)-$(PlatformTarget)\</IntDir>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);C:\dev\libs\boost\1.60.0\</IncludePath>
+    <LibraryPath>$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(NETFXKitsDir)Lib\um\x86;C:\dev\libs\boost\1.60.0\lib-$(PlatformTarget)-msvc-$(MSBuildToolsVersion)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(SolutionDir)bin\$(Configuration)-$(PlatformTarget)\</OutDir>
     <IntDir>$(SolutionDir)tmp\$(ProjectName)-$(Configuration)-$(PlatformTarget)\</IntDir>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);C:\dev\libs\boost\1.60.0\</IncludePath>
+    <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(NETFXKitsDir)Lib\um\x64;C:\dev\libs\boost\1.60.0\lib-$(PlatformTarget)-msvc-$(MSBuildToolsVersion)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -110,7 +118,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <PrecompiledHeaderFile />
       <PrecompiledHeaderOutputFile />
@@ -148,7 +156,7 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <PrecompiledHeaderFile />
       <PrecompiledHeaderOutputFile />
@@ -162,13 +170,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp" />
+    <ClCompile Include="runner.cpp" />
+    <ClCompile Include="tests\nstring_tests.cpp" />
+    <ClCompile Include="tests\win\windows_utils_tests.cpp" />
+    <ClCompile Include="tests\win\winerror_tests.cpp" />
+    <ClCompile Include="tests\win\wininet_utils_tests.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="npp\cwrap.hpp" />
     <ClInclude Include="npp\nstring.hpp" />
     <ClInclude Include="npp\win\windows_utils.hpp" />
     <ClInclude Include="npp\win\winerror.hpp" />
     <ClInclude Include="npp\win\wininet_utils.hpp" />
+    <ClInclude Include="tests\boost_unit_test.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
