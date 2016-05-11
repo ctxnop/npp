@@ -179,6 +179,7 @@
   <ItemGroup>
     <ClInclude Include="npp\cwrap.hpp" />
     <ClInclude Include="npp\nstring.hpp" />
+    <ClInclude Include="npp\win\registry.hpp" />
     <ClInclude Include="npp\win\windows_utils.hpp" />
     <ClInclude Include="npp\win\winerror.hpp" />
     <ClInclude Include="npp\win\wininet_utils.hpp" />

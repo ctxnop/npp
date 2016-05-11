@@ -50,5 +50,8 @@
     <ClInclude Include="tests\boost_unit_test.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="npp\win\registry.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

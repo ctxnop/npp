@@ -46,10 +46,13 @@ namespace npp
 	private:
 		TCType value_;
 
-		cwrap_t(const TCType&) = delete;
-		cwrap_t& operator=(const TCType&) = delete;
+		cwrap_t(const cwrap_t&) = delete;
+		cwrap_t& operator=(const cwrap_t&) = delete;
 
 	public:
+		typedef TCType wrapped_type;
+		typedef TTrait trait_type;
+
 		/// @brief Construit une nouvelle instance.
 		cwrap_t() : value_{ TTrait::default_value() } {}
 
