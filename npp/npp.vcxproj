@@ -74,28 +74,28 @@
     <OutDir>$(SolutionDir)bin\$(Configuration)-$(PlatformTarget)\</OutDir>
     <IntDir>$(SolutionDir)tmp\$(ProjectName)-$(Configuration)-$(PlatformTarget)\</IntDir>
     <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);C:\dev\libs\boost\1.60.0\</IncludePath>
-    <LibraryPath>$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(NETFXKitsDir)Lib\um\x86;C:\dev\libs\boost\1.60.0\lib-$(PlatformTarget)-msvc-$(MSBuildToolsVersion)</LibraryPath>
+    <LibraryPath>$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(NETFXKitsDir)Lib\um\x86;C:\dev\libs\boost\1.60.0\lib32-msvc-14.0</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(SolutionDir)bin\$(Configuration)-$(PlatformTarget)\</OutDir>
     <IntDir>$(SolutionDir)tmp\$(ProjectName)-$(Configuration)-$(PlatformTarget)\</IntDir>
     <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);C:\dev\libs\boost\1.60.0\</IncludePath>
-    <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(NETFXKitsDir)Lib\um\x64;C:\dev\libs\boost\1.60.0\lib-$(PlatformTarget)-msvc-$(MSBuildToolsVersion)</LibraryPath>
+    <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(NETFXKitsDir)Lib\um\x64;C:\dev\libs\boost\1.60.0\lib64-msvc-14.0</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(SolutionDir)bin\$(Configuration)-$(PlatformTarget)\</OutDir>
     <IntDir>$(SolutionDir)tmp\$(ProjectName)-$(Configuration)-$(PlatformTarget)\</IntDir>
     <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);C:\dev\libs\boost\1.60.0\</IncludePath>
-    <LibraryPath>$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(NETFXKitsDir)Lib\um\x86;C:\dev\libs\boost\1.60.0\lib-$(PlatformTarget)-msvc-$(MSBuildToolsVersion)</LibraryPath>
+    <LibraryPath>$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(NETFXKitsDir)Lib\um\x86;C:\dev\libs\boost\1.60.0\lib32-msvc-14.0</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(SolutionDir)bin\$(Configuration)-$(PlatformTarget)\</OutDir>
     <IntDir>$(SolutionDir)tmp\$(ProjectName)-$(Configuration)-$(PlatformTarget)\</IntDir>
     <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);C:\dev\libs\boost\1.60.0\</IncludePath>
-    <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(NETFXKitsDir)Lib\um\x64;C:\dev\libs\boost\1.60.0\lib-$(PlatformTarget)-msvc-$(MSBuildToolsVersion)</LibraryPath>
+    <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(NETFXKitsDir)Lib\um\x64;C:\dev\libs\boost\1.60.0\lib64-msvc-14.0</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -170,7 +170,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="npp\date_time.cpp" />
     <ClCompile Include="runner.cpp" />
+    <ClCompile Include="tests\date_time_tests.cpp" />
     <ClCompile Include="tests\nstring_tests.cpp" />
     <ClCompile Include="tests\win\windows_utils_tests.cpp" />
     <ClCompile Include="tests\win\winerror_tests.cpp" />
@@ -178,6 +180,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="npp\cwrap.hpp" />
+    <ClInclude Include="npp\date_time.hpp" />
     <ClInclude Include="npp\nstring.hpp" />
     <ClInclude Include="npp\win\registry.hpp" />
     <ClInclude Include="npp\win\windows_utils.hpp" />
